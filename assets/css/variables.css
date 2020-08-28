@@ -1,0 +1,18 @@
+:root {
+  /* Message colors */
+  --color-error: #E13E39;
+  --color-warning: #F5C817;
+  --color-success: #4B6FDD;
+
+  --color-light-1: #F3F4F7;
+  --color-light-2: #E7E9EF;
+  --color-middle: #E0E0E0;
+  --color-dark-1: #ABADB1;
+  --color-dark-2: #262626;
+
+  font-size: 16px;
+
+  --radius-10: 10px;
+  --radius-5: 5px;
+
+}
