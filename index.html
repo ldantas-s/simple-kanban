@@ -20,16 +20,57 @@
     </nav>
 
     <main class="main">
+
+      <!-- To do Column -->
       <section class="main__column">
         <header class="main__column-header">
           <h2 class="main__column-header__title">To do</h2>
+          <form id="new-todo" class="main__column-header-form">
+            <label class="main__column-header-form__label" for="new_todo">New Todo</label>
+            <input type="text" placeholder="+ New Todo" id="new_todo" name="new_todo" class="main__column-header-form__input">
+          </form>
         </header>
+        <!-- Card List -->
+        <ul class="main__column-cardList">
+          <div class="main__column-cardList-dragArea">
+            <li class="main__column-cardList__card" draggable="true">
+              <p class="main__column-cardList__card__title">Card Title</p>
+              <p class="main__column-cardList__card__date">createdAt: 28 ago 2020</p>
+            </li>
+          </div>
+          <div class="main__column-cardList-dragArea">
+            <li class="main__column-cardList__card" draggable="true">
+              <p class="main__column-cardList__card__title">Card Title</p>
+              <p class="main__column-cardList__card__date">createdAt: 28 ago 2020</p>
+            </li>
+          </div>
+        </ul>
+
       </section>
+      <!-- In progress Column -->
       <section class="main__column">
-        <h2>In Progress</h2>
+        <header class="main__column-header">
+          <h2>In Progress</h2>
+        </header>
+        <!-- Card List -->
+        <ul class="main__column-cardList">
+          <div class="main__column-cardList-dragArea">
+            <li class="main__column-cardList__card" draggable="true">
+              <p class="main__column-cardList__card__title">Card Title</p>
+              <p class="main__column-cardList__card__date">createdAt: 28 ago 2020</p>
+            </li>
+          </div>
+        </ul>
       </section>
+
+      <!-- Done Column -->
       <section class="main__column">
-        <h2>Done</h2>
+        <header class="main__column-header">
+          <h2>Done</h2>
+        </header>
+        <!-- Card List -->
+        <ul class="main__column-cardList">
+        </ul>
       </section>
     </main>
     
