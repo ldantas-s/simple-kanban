@@ -81,10 +81,12 @@
   overflow-y: auto;
   padding: 0 25px;
 }
-.main__column-cardList-dragArea {
+.main__column-cardList-dropArea {
+  min-height: 40px;
+  padding: 5px;
   margin: 10px 0;
 }
-.main__column-cardList-dragArea--border {
+.main__column-cardList-dropArea--border {
   border: 2px dashed gray;
 }
 .main__column-cardList__card {

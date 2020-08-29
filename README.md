@@ -12,3 +12,4 @@ Desktop: 1440x900
 - Methodology BEM
 - Firestore
 - HTML/CSS/JS
+- DragDrop

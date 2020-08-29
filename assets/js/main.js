@@ -1,7 +1,10 @@
 import { createNewTodo } from './card.js';
 import { el } from './elements.js';
+import { dragFunctions } from './dragAndDrop.js';
 
 
+// active function drag
+dragFunctions();
 // show btnNewTodo function
 el.form.new_todo.addEventListener('input', function(e) {
   if (this.value) {
@@ -13,16 +16,25 @@ el.form.new_todo.addEventListener('input', function(e) {
   }
 });
 
+// form submit
 el.form.addEventListener('submit', function(e) {
   e.preventDefault();
   createNewTodo(this.new_todo.value);
   this.reset();
-  hiddenBtn()
+  hiddenBtn();
+  // update the tree DOM
+  el.itemsDraggable = document.querySelectorAll('.main__column-cardList__card');
+  el.dropAreas = document.querySelectorAll('.main__column-cardList-dropArea');
+
+  // active function drag
+  dragFunctions();
+
+
 });
 
 
 
-
+// function to hidden the button input
 function hiddenBtn() {
     el.btnNewTodo.style.transform = '';
     el.btnNewTodo.style.width = '';
