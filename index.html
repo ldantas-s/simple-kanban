@@ -8,6 +8,8 @@
 
     <!-- Font import -->
     <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;500&display=swap" rel="stylesheet">
+    <!-- FontAwesome icons solid -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
     <!-- Styles import -->
     <link rel="stylesheet" href="./assets//css//variables.css">
     <link rel="stylesheet" href="./assets//css//reset.css">
@@ -28,10 +30,11 @@
           <form id="new-todo" class="main__column-header-form">
             <label class="main__column-header-form__label" for="new_todo">New Todo</label>
             <input type="text" placeholder="+ New Todo" id="new_todo" name="new_todo" class="main__column-header-form__input">
+            <button id="btnNewTodo" class="main__column-header-form__btn"><i class="fas fa-arrow-right"></i></button>
           </form>
         </header>
         <!-- Card List -->
-        <ul class="main__column-cardList">
+        <ul id="column-todo" class="main__column-cardList">
           <div class="main__column-cardList-dragArea">
             <li class="main__column-cardList__card" draggable="true">
               <p class="main__column-cardList__card__title">Card Title</p>
@@ -74,5 +77,6 @@
       </section>
     </main>
     
+    <script src="./assets/js/main.js" type="module"></script>
   </body>
 </html>
