@@ -101,6 +101,7 @@
 }
 .main__column-cardList__card__title {
   font-weight: 700;
+  word-break: break-word;
 }
 .main__column-cardList__card__date {
   color: var(--color-dark-1);
