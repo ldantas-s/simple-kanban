@@ -1,6 +1,6 @@
 import { createNewTodo } from './card.js';
 import { el } from './elements.js';
-import { dragFunctions } from './dragAndDrop.js';
+import { dragFunctions, cardsOrder } from './dragAndDrop.js';
 
 
 // active function drag
@@ -28,10 +28,11 @@ el.form.addEventListener('submit', function(e) {
 
   // active function drag
   dragFunctions();
-
-
+  // card order
+  cardsOrder(el.cardListInProgress);
+  cardsOrder(el.cardListTodo);
+  cardsOrder(el.cardListDone);
 });
-
 
 
 // function to hidden the button input

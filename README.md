@@ -13,3 +13,11 @@ Desktop: 1440x900
 - Firestore
 - HTML/CSS/JS
 - DragDrop
+
+## User Stories
+
+- [x] User can create a new to do
+- [x] User can move all of to do of column to column
+- [ ] User can remove to do
+- [ ] User can rename to do
+- [ ] User can access by mobile phone
