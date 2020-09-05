@@ -1,64 +1,78 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="author" content="ldantas_S">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple-Kanban</title>
 
-    <!-- Font import -->
-    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;500&display=swap" rel="stylesheet">
-    <!-- FontAwesome icons solid -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
-    <!-- Styles import -->
-    <link rel="stylesheet" href="./assets//css//variables.css">
-    <link rel="stylesheet" href="./assets//css//reset.css">
-    <link rel="stylesheet" href="./assets/css/main.css">
-  </head>
-  <body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="author" content="ldantas_S">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple-Kanban</title>
 
-    <nav class="nav">
-      <h1 class="nav__title">Simple-Kanban</h1>
-    </nav>
+  <!-- Font import -->
+  <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;500&display=swap" rel="stylesheet">
+  <!-- FontAwesome icons solid -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+  <!-- Styles import -->
+  <link rel="stylesheet" href="./assets//css//variables.css">
+  <link rel="stylesheet" href="./assets//css//reset.css">
+  <link rel="stylesheet" href="./assets/css/main.css">
+</head>
 
-    <main class="main">
+<body>
 
-      <!-- To do Column -->
-      <section class="main__column">
-        <header class="main__column-header">
-          <h2 class="main__column-header__title">To do</h2>
-          <form id="new-todo" class="main__column-header-form">
-            <label class="main__column-header-form__label" for="new_todo">New Todo</label>
-            <input type="text" placeholder="+ New Todo" id="new_todo" name="new_todo" class="main__column-header-form__input">
-            <button id="btnNewTodo" class="main__column-header-form__btn"><i class="fas fa-arrow-right"></i></button>
-          </form>
-        </header>
-        <!-- Card List -->
-        <ul id="column-todo" class="main__column-cardList">
-        </ul>
+  <nav class="nav">
+    <h1 class="nav__title">Simple-Kanban</h1>
+  </nav>
 
-      </section>
-      <!-- In progress Column -->
-      <section class="main__column">
-        <header class="main__column-header">
-          <h2>In Progress</h2>
-        </header>
-        <!-- Card List -->
-        <ul id="column-in-progress" class="main__column-cardList">
-        </ul>
-      </section>
+  <main class="main">
 
-      <!-- Done Column -->
-      <section class="main__column">
-        <header class="main__column-header">
-          <h2>Done</h2>
-        </header>
-        <!-- Card List -->
-        <ul id="column-done" class="main__column-cardList">
-        </ul>
-      </section>
-    </main>
-    
-    <script src="./assets/js/main.js" type="module"></script>
-  </body>
+    <!-- To do Column -->
+    <section class="main__column">
+      <header class="main__column-header">
+        <h2 class="main__column-header__title">To do</h2>
+        <form id="new-todo" class="main__column-header-form">
+          <label class="main__column-header-form__label" for="new_todo">New Todo</label>
+          <input type="text" placeholder="+ New Todo" id="new_todo" name="new_todo"
+            class="main__column-header-form__input">
+          <button id="btnNewTodo" class="main__column-header-form__btn"><i class="fas fa-arrow-right"></i></button>
+        </form>
+      </header>
+      <!-- Card List -->
+      <ul id="column-todo" class="main__column-cardList">
+      </ul>
+
+    </section>
+    <!-- In progress Column -->
+    <section class="main__column">
+      <header class="main__column-header">
+        <h2>In Progress</h2>
+      </header>
+      <!-- Card List -->
+      <ul id="column-in-progress" class="main__column-cardList">
+        <div class="main__column-cardList-dropArea">
+          <li class="main__column-cardList__card" draggable="true">
+            <p class="main__column-cardList__card__title">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus id lacus vitae erat suscipit nam.</p>
+            <p class="main__column-cardList__card__date">4 September 2020</p>
+            <div class="main__column-cardList__card-actionsChange">
+              <img class="main__column-cardList__card-actionsChange__update" src="./assets/images/pen-square-solid.svg" alt="icon delete">
+              <img class="main__column-cardList__card-actionsChange__delete" src="./assets/images/minus-square-solid.svg" alt="icon delete">
+            </div>
+          </li>
+        </div>
+      </ul>
+    </section>
+
+    <!-- Done Column -->
+    <section class="main__column">
+      <header class="main__column-header">
+        <h2>Done</h2>
+      </header>
+      <!-- Card List -->
+      <ul id="column-done" class="main__column-cardList">
+      </ul>
+    </section>
+  </main>
+
+  <script src="./assets/js/main.js" type="module"></script>
+</body>
+
 </html>

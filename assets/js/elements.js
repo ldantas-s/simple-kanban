@@ -1,5 +1,6 @@
 export const el = {
-  form: document.querySelector('#new-todo'),
+  form: document.querySelector('.main__column-header-form'),
+  input: document.querySelector('.main__column-header-form__input'),
   btnNewTodo: document.querySelector('#btnNewTodo'),
   cardListTodo: document.querySelector('#column-todo'),
   cardListInProgress: document.querySelector('#column-in-progress'),

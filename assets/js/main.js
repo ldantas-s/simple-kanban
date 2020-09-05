@@ -16,16 +16,33 @@ el.form.new_todo.addEventListener('input', function(e) {
   }
 });
 
+
+// listen change in input
+el.input.addEventListener('input', function() {
+  if (this.value.length > 100) {
+    this.style.borderColor = 'var(--color-error)';
+    return;
+  } else {
+    this.style.borderColor = '';
+  }
+});
 // form submit
 el.form.addEventListener('submit', function(e) {
+  
   e.preventDefault();
+  // max letters
+  if (this.new_todo.value.length > 100) {
+    return;
+  }
+
   createNewTodo(this.new_todo.value);
+  
   this.reset();
   hiddenBtn();
+  
   // update the tree DOM
   el.itemsDraggable = document.querySelectorAll('.main__column-cardList__card');
   el.dropAreas = document.querySelectorAll('.main__column-cardList-dropArea');
-
   // active function drag
   dragFunctions();
   // card order

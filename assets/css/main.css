@@ -90,6 +90,7 @@
   border: 2px dashed gray;
 }
 .main__column-cardList__card {
+  position: relative;
   height: 100px;
   padding: 15px 10px 10px;
   border-radius: var(--radius-10);
@@ -98,6 +99,24 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+.main__column-cardList__card-actionsChange {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.main__column-cardList__card-actionsChange__delete {
+  width: 20px;
+  cursor: pointer;
+  margin-left: 5px;
+}
+.main__column-cardList__card-actionsChange__update {
+  width: 20px;
+  cursor: pointer;
+
 }
 .main__column-cardList__card__title {
   font-weight: 700;
