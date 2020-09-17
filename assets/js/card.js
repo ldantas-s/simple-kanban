@@ -6,10 +6,27 @@ let months = ["January", "February", "March", "April", "May", "June", "July", "A
 let createdAt = `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
 
 export function createNewTodo(title) {
-  let div = document.createElement('div');
-  let li = document.createElement('li');
-  let p1 = document.createElement('p');
-  let p2 = document.createElement('p');
+  let 
+    div = document.createElement('div'),
+    li = document.createElement('li'),
+    p1 = document.createElement('p'),
+    p2 = document.createElement('p'),
+    blockFunctionsChange = document.createElement('div'),
+    iconDelete = document.createElement('img'),
+    iconUpdate = document.createElement('img');
+  
+  blockFunctionsChange.classList.add('main__column-cardList__card-actionsChange');
+  
+  iconUpdate.classList.add('main__column-cardList__card-actionsChange__update');
+  iconUpdate.setAttribute('src', './assets/images/pen-square-solid.svg');
+  iconUpdate.setAttribute('alt', 'icon update');
+  
+  iconDelete.classList.add('main__column-cardList__card-actionsChange__delete');
+  iconDelete.setAttribute('src', './assets/images/minus-square-solid.svg');
+  iconDelete.setAttribute('alt', 'icon update');
+
+  blockFunctionsChange.appendChild(iconUpdate);
+  blockFunctionsChange.appendChild(iconDelete);
 
   div.classList.add('main__column-cardList-dropArea');
 
@@ -23,6 +40,7 @@ export function createNewTodo(title) {
 
   li.appendChild(p1);
   li.appendChild(p2);
+  li.appendChild(blockFunctionsChange);
 
   div.appendChild(li);
 

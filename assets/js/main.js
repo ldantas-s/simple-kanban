@@ -2,11 +2,19 @@ import { createNewTodo } from './card.js';
 import { el } from './elements.js';
 import { dragFunctions, cardsOrder } from './dragAndDrop.js';
 
+import { fbCreateTodo, fbGetTodos } from './crud.js';
+
+
+// Get todos of the database
+function fillColumns(cardListName) {
+  
+  console.log(fbGetTodos('c-todo'));
+}
 
 // active function drag
 dragFunctions();
 // show btnNewTodo function
-el.form.new_todo.addEventListener('input', function(e) {
+el.form.title.addEventListener('input', function(e) {
   if (this.value) {
     el.btnNewTodo.style.transform = 'scale(1)';
     el.btnNewTodo.style.width = '50px';
@@ -31,11 +39,14 @@ el.form.addEventListener('submit', function(e) {
   
   e.preventDefault();
   // max letters
-  if (this.new_todo.value.length > 100) {
+  if (this.title.value.length > 100) {
     return;
   }
 
-  createNewTodo(this.new_todo.value);
+  fbCreateTodo({
+    title: this.title.value,
+    state: 'c-todo'
+  });
   
   this.reset();
   hiddenBtn();
@@ -52,9 +63,13 @@ el.form.addEventListener('submit', function(e) {
 });
 
 
-// function to hidden the button input
+// function to hidden the button createNewTodo
 function hiddenBtn() {
     el.btnNewTodo.style.transform = '';
     el.btnNewTodo.style.width = '';
     el.btnNewTodo.style.height = '';
 }
+
+el.btnDeleteTodo.addEventListener('click', function(e) {
+  console.dir(e)
+});
