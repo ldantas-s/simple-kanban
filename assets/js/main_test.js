@@ -52,9 +52,9 @@ function hiddenBtn() {
 
 // Functions Card Element
 const card = {
-  async display(doc) {
+  async display(doc = null) {
 
-		let createdAt = await doc.data().createdAt.toDate().toUTCString() !== null ? doc.data().createdAt.toDate().toUTCString():'';
+		// let createdAt = await doc.data().createdAt.toDate().toUTCString() !== null ? doc.data().createdAt.toDate().toUTCString():'';
 		// let createdAt = doc.data().then(response => response.createdAt.toDate().toUTCString());
 
     let
@@ -90,8 +90,12 @@ const card = {
 
     p1.classList.add('main__column-cardList__card__title');
     p1.textContent = doc.data().title;
-    p2.classList.add('main__column-cardList__card__date');
-    p2.textContent = createdAt;
+		p2.classList.add('main__column-cardList__card__date');
+		try {
+			p2.textContent = new Date(doc.data().createdAt.toDate()).toLocaleString();
+		} catch(err) {
+			console.log('Wait a minute!')
+		}
 
     li.appendChild(p1);
     li.appendChild(p2);
@@ -184,18 +188,27 @@ el.form.addEventListener('submit', async function(event) {
 // Realtime firestore updates
 todosCollectionRef.onSnapshot(function(snapshot) {
 	snapshot.docChanges().forEach(async function(change) {
+		// console.log(new Date(change.doc.data().createdAt.toDate()).toLocaleString())
 		switch(change.type) {
 			case 'added':
 				card.display(change.doc);
 				break;
 			case 'removed':
-				const cardDelete = document.querySelector(`[data-id=${change.doc.id}]`);
+				const cardDelete = document.querySelector(`div[data-id="${change.doc.id}"]`);
 				document.querySelector('.main__column-cardList').removeChild(cardDelete);
 				break;
 			case 'modified':
-				document.querySelector(`[data-id=${change.doc.id}] p:first-child`).textContent = await change.doc.data().title;
-				document.querySelector(`[data-id=${change.doc.id}] p:last-child`).textContent = await change.doc.data().createdAt;
-				// card.display(change.doc);
+				const cardUpdate = document.querySelector(`div[data-id="${change.doc.id}"]`).children[0];
+				const cardTitle = cardUpdate.children[0];
+				const cardDate = cardUpdate.children[1];
+
+				try {
+					cardTitle.textContent = change.doc.data().title;
+					cardDate.textContent = new Date(change.doc.data().createdAt.toDate()).toLocaleString();
+				} catch(err) {
+					console.log('Wait a minute! :)')
+
+				}
 				break;
 		}
 	});
