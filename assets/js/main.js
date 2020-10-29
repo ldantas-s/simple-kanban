@@ -1,18 +1,10 @@
-import { createNewTodo } from './card.js';
+import {card} from './card.js';
 import { el } from './elements.js';
 import { dragFunctions, cardsOrder } from './dragAndDrop.js';
 
-import { fbCreateTodo, fbGetTodos } from './crud.js';
+import { fbCreateTodo, todosCollectionRef } from './crud.js';
 
 
-// Get todos of the database
-function fillColumns(cardListName) {
-  
-  console.log(fbGetTodos('c-todo'));
-}
-
-// active function drag
-dragFunctions();
 // show btnNewTodo function
 el.form.title.addEventListener('input', function(e) {
   if (this.value) {
@@ -23,8 +15,6 @@ el.form.title.addEventListener('input', function(e) {
     hiddenBtn();
   }
 });
-
-
 // listen change in input
 el.input.addEventListener('input', function() {
   if (this.value.length > 100) {
@@ -61,8 +51,6 @@ el.form.addEventListener('submit', function(e) {
   cardsOrder(el.cardListTodo);
   cardsOrder(el.cardListDone);
 });
-
-
 // function to hidden the button createNewTodo
 function hiddenBtn() {
     el.btnNewTodo.style.transform = '';
@@ -70,6 +58,35 @@ function hiddenBtn() {
     el.btnNewTodo.style.height = '';
 }
 
-el.btnDeleteTodo.addEventListener('click', function(e) {
-  console.dir(e)
+async function distribuirTodosNasColunas(doc) {
+  let stateTodo = await doc.data().state;
+  const todo = card.display(doc);
+
+  console.log(stateTodo)
+
+  if (stateTodo === 'c-todo') {
+    el.cardListTodo.append(todo);
+
+  } else if (stateTodo === 'c-inProgress') {
+    el.cardListInProgress.append(todo);
+
+  } else if (stateTodo === 'c-done') {
+    el.cardListDone.append(todo);
+  }
+}
+
+
+todosCollectionRef.onSnapshot(function(snapshot) {
+  snapshot.docChanges().forEach(function(change) {
+
+    switch(change.type) {
+      case 'added':
+        distribuirTodosNasColunas(change.doc);
+        break;
+      case 'removed':
+        distribuirTodosNasColunas(change.doc);
+        break;
+    }
+
+  });
 });

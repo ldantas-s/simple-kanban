@@ -1,27 +1,16 @@
 import { db, timestamp } from './firebaseConfig.js';
 
+export const todosCollectionRef = db.collection('todos');
 
-export function fbGetTodos(columnName = 'c-todo') {
-  let data = [];
-  db.collection('todos')
-    .where('state','==',columnName)
-    .get()
-    .then(snapshot => {
-      snapshot.docs.forEach(doc => {
-        data.push(doc.data());
-      });
-    });
-  return data;
-}
 
 export function fbCreateTodo({ title, state }) {
-  db.collection('todos').add({
+  todosCollectionRef.add({
     title,
     state,
     createdAt: timestamp()
   });
 }
 
-export function fbDeleteTodo({ id }) {
-  db.collection('todos').doc(id).delete();
+export function fbDeleteTodo(id) {
+  todosCollectionRef.doc(id).delete();
 }

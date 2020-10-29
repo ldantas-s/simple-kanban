@@ -17,7 +17,7 @@ Desktop: 1440x900
 ## User Stories
 
 - [x] User can create a new to do
-- [x] User can move all of to do of column to column
-- [ ] User can remove to do
+- [ ] User can move all of to do of column to column
+- [X] User can remove to do
 - [ ] User can rename to do
 - [ ] User can access by mobile phone
