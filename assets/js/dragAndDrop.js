@@ -4,9 +4,9 @@ import { el } from './elements.js';
 let draggable;
 
 export function dragFunctions() {
-  
+
   el.itemsDraggable.forEach(itemDrag => {
-    itemDrag.addEventListener('dragstart', dragStart);    
+    itemDrag.addEventListener('dragstart', dragStart);
     itemDrag.addEventListener('dragend', dragEnd);
   });
 
@@ -15,7 +15,7 @@ export function dragFunctions() {
     dropArea.addEventListener('dragenter', dragEnter);
     dropArea.addEventListener('dragleave', dragLeave);
     dropArea.addEventListener('drop', drop);
-  });  
+  });
 }
 
 function dragStart(e) {

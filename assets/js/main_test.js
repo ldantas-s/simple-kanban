@@ -50,13 +50,11 @@ function hiddenBtn() {
 
 
 
+
+
 // Functions Card Element
 const card = {
   async display(doc = null) {
-
-		// let createdAt = await doc.data().createdAt.toDate().toUTCString() !== null ? doc.data().createdAt.toDate().toUTCString():'';
-		// let createdAt = doc.data().then(response => response.createdAt.toDate().toUTCString());
-
     let
       div = document.createElement('div'),
       li = document.createElement('li'),
@@ -108,10 +106,14 @@ const card = {
 
 		iconDelete.addEventListener('click', this.remove);
 		iconUpdate.addEventListener('click', this.update);
+		li.addEventListener('dragstart', dragStart);
+		li.addEventListener('dragend', dragEnd);
+		this.dragAndDropArea(div);
+
   },
 
-  remove(event) {
-    todosCollectionRef.doc(event.target.getAttribute('data-id')).delete();
+  async remove(event) {
+    await todosCollectionRef.doc(event.target.getAttribute('data-id')).delete();
   },
 
   update(event) {
@@ -129,9 +131,66 @@ const card = {
     dropArea2.classList.add('main__column-cardList-dropArea');
 
     el.cardListInProgress.appendChild(dropArea2);
-    el.cardListDone.appendChild(dropArea1);
-  }
+		el.cardListDone.appendChild(dropArea1);
+
+		this.dragAndDropArea(dropArea1);
+		this.dragAndDropArea(dropArea2);
+	},
+	dragAndDropArea(dropArea) {
+
+		dropArea.addEventListener('dragover', dragOver);
+		dropArea.addEventListener('dragenter', dragEnter);
+		dropArea.addEventListener('dragleave', dragLeave);
+		dropArea.addEventListener('drop', drop);
+
+	}
 }
+
+
+// Functions DragAndDrop
+let draggable, dropAreaState = false;
+
+function dragStart(e) {
+	console.log('dragStart')
+  draggable = e.target;
+  setTimeout(()=> this.style.display = 'none', 0);
+}
+function dragEnd(e) {
+  this.style.display = '';
+}
+function dragOver(e) {
+  e.preventDefault();
+}
+function dragEnter(e) {
+	e.preventDefault();
+  this.style.border = '2px dashed gray';
+	this.style.height = '112px';
+
+	dropAreaState = this.children.length > 0 ? true : false;
+
+}
+function dragLeave(e) {
+  this.style.border = '';
+	this.style.height = '';
+
+}
+function drop(e) {
+	console.log('Aqui será o local para executar o update da coluna em cada card')
+  this.style.border = '';
+  this.style.height = '';
+
+	if (e.target.children.length !== 0 || dropAreaState) {
+		return;
+	}
+
+  this.append(draggable);
+
+  // cardsOrder(el.cardListTodo);
+  // cardsOrder(el.cardListInProgress);
+  // cardsOrder(el.cardListDone);
+}
+
+
 
 
 // OPERATION WITH FORM
@@ -165,7 +224,7 @@ el.form.addEventListener('submit', async function(event) {
 	let idCard = this.title.getAttribute('data-id');
 
 	if (idCard === '') {
-		todosCollectionRef.add({
+		await todosCollectionRef.add({
 			title: this.title.value,
 			state: 'c-todo',
 			createdAt: timestamp(),
@@ -188,7 +247,7 @@ el.form.addEventListener('submit', async function(event) {
 // Realtime firestore updates
 todosCollectionRef.onSnapshot(function(snapshot) {
 	snapshot.docChanges().forEach(async function(change) {
-		// console.log(new Date(change.doc.data().createdAt.toDate()).toLocaleString())
+
 		switch(change.type) {
 			case 'added':
 				card.display(change.doc);
@@ -207,7 +266,6 @@ todosCollectionRef.onSnapshot(function(snapshot) {
 					cardDate.textContent = new Date(change.doc.data().createdAt.toDate()).toLocaleString();
 				} catch(err) {
 					console.log('Wait a minute! :)')
-
 				}
 				break;
 		}
