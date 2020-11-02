@@ -81,10 +81,10 @@ const card = {
     blockFunctionsChange.appendChild(iconDelete);
 
 		div.classList.add('main__column-cardList-dropArea');
-		div.setAttribute('data-id', doc.id);
 
     li.classList.add('main__column-cardList__card');
     li.setAttribute('draggable', 'true');
+		li.setAttribute('data-id', doc.id);
 
     p1.classList.add('main__column-cardList__card__title');
     p1.textContent = doc.data().title;
@@ -101,7 +101,17 @@ const card = {
 
     div.appendChild(li);
 
-    el.cardListTodo.appendChild(div);
+		switch(doc.data().state) {
+			case 'c-todo':
+				el.cardListTodo.appendChild(div);
+				break;
+			case 'c-inProgress':
+				el.cardListInProgress.appendChild(div);
+				break;
+			case 'c-done':
+				el.cardListDone.appendChild(div);
+				break;
+		}
     this.addDropArea();
 
 		iconDelete.addEventListener('click', this.remove);
@@ -118,7 +128,7 @@ const card = {
 
   update(event) {
 		let idCard = event.target.getAttribute('data-id');
-		let contentCard = document.querySelector(`div[data-id="${idCard}"] p:first-child`).textContent;
+		let contentCard = document.querySelector(`li[data-id="${idCard}"] p:first-child`).textContent;
 		el.input.value = contentCard;
 		el.input.setAttribute('data-id', idCard);
 	},
@@ -126,15 +136,19 @@ const card = {
   addDropArea() {
     let dropArea1 = document.createElement('div');
     let dropArea2 = document.createElement('div');
+    let dropArea3 = document.createElement('div');
 
     dropArea1.classList.add('main__column-cardList-dropArea');
     dropArea2.classList.add('main__column-cardList-dropArea');
+    dropArea3.classList.add('main__column-cardList-dropArea');
 
+		el.cardListTodo.appendChild(dropArea3);
     el.cardListInProgress.appendChild(dropArea2);
 		el.cardListDone.appendChild(dropArea1);
 
 		this.dragAndDropArea(dropArea1);
 		this.dragAndDropArea(dropArea2);
+		this.dragAndDropArea(dropArea3);
 	},
 	dragAndDropArea(dropArea) {
 
@@ -175,13 +189,18 @@ function dragLeave(e) {
 
 }
 function drop(e) {
-	console.log('Aqui será o local para executar o update da coluna em cada card')
-  this.style.border = '';
-  this.style.height = '';
+	this.style.border = '';
+	this.style.height = '';
+
 
 	if (e.target.children.length !== 0 || dropAreaState) {
 		return;
 	}
+
+	todosCollectionRef.doc(draggable.getAttribute('data-id')).update({
+		state: e.target.parentElement.getAttribute('id'),
+		createdAt: timestamp()
+	});
 
   this.append(draggable);
 
@@ -253,11 +272,11 @@ todosCollectionRef.onSnapshot(function(snapshot) {
 				card.display(change.doc);
 				break;
 			case 'removed':
-				const cardDelete = document.querySelector(`div[data-id="${change.doc.id}"]`);
+				const cardDelete = document.querySelector(`li[data-id="${change.doc.id}"]`).parentElement;
 				document.querySelector('.main__column-cardList').removeChild(cardDelete);
 				break;
 			case 'modified':
-				const cardUpdate = document.querySelector(`div[data-id="${change.doc.id}"]`).children[0];
+				const cardUpdate = document.querySelector(`li[data-id="${change.doc.id}"]`);
 				const cardTitle = cardUpdate.children[0];
 				const cardDate = cardUpdate.children[1];
 
