@@ -36,9 +36,6 @@ const
 	todosCollectionRef = db.collection('todos');
 
 
-
-
-
 // FUNCTIONS
 
 // to hidden the button createNewTodo
@@ -48,8 +45,15 @@ function hiddenBtn() {
   el.btnNewTodo.style.height = '';
 }
 
-
-
+// ! está com um bug que está deixando um espaço vazio na coluna Todo
+// ordinate function
+function cardsOrder(column) {
+  for (let listEl of column.children) {
+    if (!listEl.children.length > 0) {
+      column.append(listEl);
+    }
+  }
+}
 
 
 // Functions Card Element
@@ -99,11 +103,11 @@ const card = {
     li.appendChild(p2);
     li.appendChild(blockFunctionsChange);
 
-    div.appendChild(li);
 
+    div.appendChild(li);
 		switch(doc.data().state) {
-			case 'c-todo':
-				el.cardListTodo.appendChild(div);
+      case 'c-todo':
+        el.cardListTodo.appendChild(div);
 				break;
 			case 'c-inProgress':
 				el.cardListInProgress.appendChild(div);
@@ -203,10 +207,6 @@ function drop(e) {
 	});
 
   this.append(draggable);
-
-  // cardsOrder(el.cardListTodo);
-  // cardsOrder(el.cardListInProgress);
-  // cardsOrder(el.cardListDone);
 }
 
 
@@ -272,6 +272,7 @@ todosCollectionRef.onSnapshot(function(snapshot) {
 				card.display(change.doc);
 				break;
 			case 'removed':
+        // ! error ao excluir um card estando em uma coluna direfente da To do
 				const cardDelete = document.querySelector(`li[data-id="${change.doc.id}"]`).parentElement;
 				document.querySelector('.main__column-cardList').removeChild(cardDelete);
 				break;
@@ -287,6 +288,10 @@ todosCollectionRef.onSnapshot(function(snapshot) {
 					console.log('Wait a minute! :)')
 				}
 				break;
-		}
-	});
-});
+      }
+    });
+    cardsOrder(el.cardListTodo);
+    cardsOrder(el.cardListInProgress);
+    cardsOrder(el.cardListDone);
+  });
+
