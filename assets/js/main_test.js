@@ -103,7 +103,6 @@ const card = {
     li.appendChild(p2);
     li.appendChild(blockFunctionsChange);
 
-
     div.appendChild(li);
 		switch(doc.data().state) {
       case 'c-todo':
@@ -116,7 +115,11 @@ const card = {
 				el.cardListDone.appendChild(div);
 				break;
 		}
-    this.addDropArea();
+		this.addDropArea();
+
+		cardsOrder(el.cardListTodo);
+		cardsOrder(el.cardListInProgress);
+		cardsOrder(el.cardListDone);
 
 		iconDelete.addEventListener('click', this.remove);
 		iconUpdate.addEventListener('click', this.update);
@@ -153,6 +156,8 @@ const card = {
 		this.dragAndDropArea(dropArea1);
 		this.dragAndDropArea(dropArea2);
 		this.dragAndDropArea(dropArea3);
+
+
 	},
 	dragAndDropArea(dropArea) {
 
@@ -184,13 +189,11 @@ function dragEnter(e) {
   this.style.border = '2px dashed gray';
 	this.style.height = '112px';
 
-	dropAreaState = this.children.length > 0 ? true : false;
-
+  dropAreaState = this.children.length > 0 ? true : false;
 }
 function dragLeave(e) {
   this.style.border = '';
 	this.style.height = '';
-
 }
 function drop(e) {
 	this.style.border = '';
@@ -267,14 +270,14 @@ el.form.addEventListener('submit', async function(event) {
 todosCollectionRef.onSnapshot(function(snapshot) {
 	snapshot.docChanges().forEach(async function(change) {
 
+
 		switch(change.type) {
 			case 'added':
 				card.display(change.doc);
 				break;
 			case 'removed':
-        // ! error ao excluir um card estando em uma coluna direfente da To do
 				const cardDelete = document.querySelector(`li[data-id="${change.doc.id}"]`).parentElement;
-				document.querySelector('.main__column-cardList').removeChild(cardDelete);
+				cardDelete.parentElement.removeChild(cardDelete);
 				break;
 			case 'modified':
 				const cardUpdate = document.querySelector(`li[data-id="${change.doc.id}"]`);
@@ -287,11 +290,13 @@ todosCollectionRef.onSnapshot(function(snapshot) {
 				} catch(err) {
 					console.log('Wait a minute! :)')
 				}
+
+				cardsOrder(el.cardListTodo);
+				cardsOrder(el.cardListInProgress);
+				cardsOrder(el.cardListDone);
 				break;
       }
     });
-    cardsOrder(el.cardListTodo);
-    cardsOrder(el.cardListInProgress);
-    cardsOrder(el.cardListDone);
+
   });
 
