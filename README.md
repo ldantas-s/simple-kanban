@@ -4,13 +4,13 @@
 
 ## Table of Contents
 
-1. [What I will use;](#what-i-will-use)
-2. [Screenshot](#screenshot);
-3. [User Stories](#user-stories);
-4. [How to run](#how-to-run);
+1. [What I will use;](#package-what-i-will-use)
+2. [Screenshot](#camera-screenshot);
+3. [User Stories](#speech_balloon-user-stories);
+4. [How to run](#computer-how-to-run);
 
 
-### :package:What I will use: 
+### :package: What I will use: 
 - Methodology BEM
 - HTML/CSS/JS
 - Firestore
@@ -25,7 +25,7 @@
 [:arrow_up:Top](#table-of-contents)
 
 
-### :speech_balloon:User Stories
+### :speech_balloon: User Stories
 
 - [x] User can create a new to do;
 - [X] User can move all of to do of column to column;
@@ -34,7 +34,7 @@
 
 [:arrow_up:Top](#table-of-contents)
 
-### :computer:How to run
+### :computer: How to run
 
 1. Make download:
 
