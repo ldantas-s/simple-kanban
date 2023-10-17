@@ -1,3 +1,4 @@
+import { Column } from "./Column";
 import { TodoList } from "./TodoList";
 
 export class Columns {
@@ -12,21 +13,18 @@ export class Columns {
 
 	add(columnName: string): void {
 		const newColumn = new TodoList(columnName);
+
 		this.columns.push(newColumn);
+
 		this.render();
 	}
 
-	columnElement(column: TodoList): Element {
-		const section = document.createElement("section");
-		section.classList.add("columns");
+	getColumn(columnName: string): TodoList {
+		const column = this.columns.find((column) => column.name === columnName);
 
-		const header = document.createElement("h1");
+		if (!column) throw new Error("Column not found");
 
-		header.innerText = column.name;
-
-		section.append(header);
-
-		return section;
+		return column;
 	}
 
 	createColumnElement() {
@@ -50,9 +48,7 @@ export class Columns {
 	render(): void {
 		this.parent.innerHTML = "";
 
-		this.columns.forEach((column) =>
-			this.parent.append(this.columnElement(column))
-		);
+		this.columns.forEach((column) => this.parent.append(Column.render(column)));
 		this.parent.append(this.createColumnElement());
 	}
 }

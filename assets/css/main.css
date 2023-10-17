@@ -10,3 +10,7 @@
 	border: 1px dashed red;
 	padding: 8px;
 }
+.column__card {
+	padding: 8px;
+	border: 1px dashed blue;
+}
