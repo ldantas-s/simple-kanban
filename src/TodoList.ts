@@ -1,7 +1,10 @@
+import { Eventing } from "./Eventing";
 import { Todo } from "./Todo";
 
-export class TodoList {
-	constructor(public name: string, private _todos: Todo[] = []) {}
+export class TodoList extends Eventing {
+	constructor(public name: string, private _todos: Todo[] = []) {
+		super();
+	}
 
 	get todos(): Todo[] {
 		return [...this._todos];
@@ -9,6 +12,7 @@ export class TodoList {
 
 	add(todo: Todo): void {
 		this._todos.push(todo);
+		this.trigger("change");
 	}
 
 	remove(todoId: string): void {

@@ -28,6 +28,7 @@ export class Columns {
 	}
 
 	createColumnElement() {
+		// TODO: it needs to abstract this bunch of code
 		const section = document.createElement("section");
 		section.classList.add("columns");
 
@@ -48,7 +49,10 @@ export class Columns {
 	render(): void {
 		this.parent.innerHTML = "";
 
-		this.columns.forEach((column) => this.parent.append(Column.render(column)));
+		this.columns.forEach((column) => {
+			column.on("change", () => this.render());
+			this.parent.append(Column.render(column));
+		});
 		this.parent.append(this.createColumnElement());
 	}
 }

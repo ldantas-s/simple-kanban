@@ -10,8 +10,6 @@ export class Column {
 
 	add(title: string): void {
 		this.column.add(new Todo(title, this.column.name, Date.now()));
-		console.log(this.column.todos);
-		this.render();
 	}
 
 	createCard(todo: Todo): Element {
@@ -26,6 +24,7 @@ export class Column {
 	}
 
 	createTodoElement(): Element {
+		// TODO: it needs to abstract this bunch of code
 		const card = document.createElement("article");
 		card.classList.add("column__card");
 
