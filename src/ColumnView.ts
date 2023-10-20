@@ -1,18 +1,29 @@
 import { Todo } from "./Todo";
 import { TodoList } from "./TodoList";
 
-export class Column {
-	static render(column: TodoList): Element {
-		return new Column(column).render();
+export class ColumnView {
+	static render(parent: Element, column: TodoList): Element {
+		return new ColumnView(parent, column).render();
 	}
 
-	constructor(public column: TodoList) {}
+	constructor(public parent: Element, public column: TodoList) {
+		this.bindRender();
+	}
 
-	add(title: string): void {
+	private bindRender(): void {
+		this.column.on("add-todo", () => {
+			this.parent.replaceChild(
+				this.render(),
+				this.parent.children.namedItem(this.column.name) as Element
+			);
+		});
+	}
+
+	private add(title: string): void {
 		this.column.add(new Todo(title, this.column.name, Date.now()));
 	}
 
-	createCard(todo: Todo): Element {
+	private createCard(todo: Todo): Element {
 		const card = document.createElement("article");
 		const cardTitle = document.createElement("h2");
 		cardTitle.textContent = todo.title;
@@ -23,7 +34,7 @@ export class Column {
 		return card;
 	}
 
-	createTodoElement(): Element {
+	private createTodoElement(): Element {
 		// TODO: it needs to abstract this bunch of code
 		const card = document.createElement("article");
 		card.classList.add("column__card");
@@ -45,7 +56,7 @@ export class Column {
 
 	render(): Element {
 		const section = document.createElement("section");
-		section.innerHTML = "";
+		section.setAttribute("id", this.column.name);
 
 		section.classList.add("columns");
 

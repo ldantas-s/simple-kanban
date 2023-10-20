@@ -1,8 +1,9 @@
 import { Columns } from "./Columns";
+import { ColumnsView } from "./ColumnsView";
 import { Todo } from "./Todo";
 
 const main = document.querySelector(".main") || undefined;
 
-const columns = new Columns(main);
+const columns = new ColumnsView(main, new Columns());
 
-columns.add("Backlog");
+columns.render();

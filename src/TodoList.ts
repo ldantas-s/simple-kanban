@@ -12,7 +12,7 @@ export class TodoList extends Eventing {
 
 	add(todo: Todo): void {
 		this._todos.push(todo);
-		this.trigger("change");
+		this.trigger("add-todo", this.name);
 	}
 
 	remove(todoId: string): void {
