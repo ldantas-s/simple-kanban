@@ -10,17 +10,33 @@ export class TodoList extends Eventing {
 		return [...this._todos];
 	}
 
-	add(todo: Todo): void {
+	createTodo(title: string): void {
+		const todo = new Todo(title, this.name, new Date(Date.now()));
+
 		this._todos.push(todo);
+		this.trigger("createtodo", this.name);
+	}
+
+	getTodo(todoTitle: string): Todo {
+		const todo = this._todos.find((todo) => todo.title === todoTitle);
+
+		if (!todo) throw new Error("Todo not found");
+
+		return todo;
+	}
+
+	addTodo(todo: Todo): void {
+		this._todos.push(this.updateTodoState(todo));
 		this.trigger("add-todo", this.name);
 	}
 
-	remove(todoId: string): void {
+	removeTodo(todoId: string): void {
 		this._todos = this._todos.filter((todo) => todo.id !== todoId);
 	}
 
-	update(todo: Todo): void {
+	private updateTodoState(todo: Todo): Todo {
 		todo.state = this.name;
-		this.add(todo);
+
+		return todo;
 	}
 }
