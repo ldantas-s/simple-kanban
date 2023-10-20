@@ -1,7 +1,7 @@
 import { Todo } from "../src/Todo";
 
 test("should create a new todo with properties", () => {
-	const createdAt = Date.now();
+	const createdAt = new Date(Date.now());
 	const todo = new Todo("To do title", "backlog", createdAt);
 
 	expect(todo.title).toEqual("To do title");
@@ -10,7 +10,7 @@ test("should create a new todo with properties", () => {
 });
 
 test("should be able to update todo title", () => {
-	const todo = new Todo("To do title", "backlog", Date.now());
+	const todo = new Todo("To do title", "backlog", new Date(Date.now()));
 
 	expect(todo.title).toEqual("To do title");
 
@@ -20,7 +20,7 @@ test("should be able to update todo title", () => {
 });
 
 test("should be able to update todo title", () => {
-	const todo = new Todo("To do title", "backlog", Date.now());
+	const todo = new Todo("To do title", "backlog", new Date(Date.now()));
 
 	expect(todo.state).toEqual("backlog");
 

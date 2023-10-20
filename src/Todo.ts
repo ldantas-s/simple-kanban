@@ -6,7 +6,7 @@ export class Todo {
 	constructor(
 		public title: string,
 		public state: string,
-		readonly createdAt: number
+		readonly createdAt: Date
 	) {
 		this.id = randomID();
 	}
