@@ -9,6 +9,7 @@
 	height: 90vh;
 	border: 1px dashed red;
 	padding: 8px;
+	overflow: auto;
 }
 .column__card {
 	padding: 8px;

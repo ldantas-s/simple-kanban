@@ -1,5 +1,5 @@
+import { CardView } from "./CardView";
 import { CreateTodoInput } from "./CreateTodoInput";
-import { Todo } from "./Todo";
 import { TodoList } from "./TodoList";
 
 export class ColumnView {
@@ -24,17 +24,6 @@ export class ColumnView {
 		this.column.createTodo(title);
 	};
 
-	private createCard(todo: Todo): Element {
-		const card = document.createElement("article");
-		const cardTitle = document.createElement("h2");
-		cardTitle.textContent = todo.title;
-
-		card.classList.add("column__card");
-		card.append(cardTitle);
-
-		return card;
-	}
-
 	render(): Element {
 		const section = document.createElement("section");
 		section.setAttribute("id", this.column.name);
@@ -46,7 +35,9 @@ export class ColumnView {
 
 		section.append(header);
 
-		this.column.todos.forEach((todo) => section.append(this.createCard(todo)));
+		this.column.todos.forEach((todo) =>
+			section.append(new CardView(todo).render())
+		);
 		section.append(new CreateTodoInput(this.add).render());
 
 		return section;
