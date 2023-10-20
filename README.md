@@ -1,5 +1,7 @@
 
 <h1 align="center">Simple-Kanban</h1>
+<h3 align="center">🚧 In refactoring process in <a href="https://github.com/ldantas-s/simple-kanban/tree/develop">develop branch</a> 🚧</h3>
+
 <p align="center">In this project I'm practicing, first of all, my english and second of all, the technologies. This project is an example agile methodology framework, Kanban.</p>
 
 ## Table of Contents
