@@ -1,5 +1,6 @@
 import { ColumnView } from "./ColumnView";
 import { Columns } from "./Columns";
+import { CreateColumnInput } from "./CreateColumnInput";
 
 export class ColumnsView {
 	parent: Element;
@@ -17,31 +18,12 @@ export class ColumnsView {
 		this.columns.on("add-column", () => this.render());
 	}
 
-	private createColumnElement() {
-		// TODO: it needs to abstract this bunch of code
-		const section = document.createElement("section");
-		section.classList.add("columns");
-
-		const input = document.createElement("input");
-		const button = document.createElement("button");
-		button.textContent = "New ColumnView";
-		button.addEventListener("click", () => {
-			if (!input.value) return;
-
-			this.columns.add(input.value);
-		});
-
-		section.append(input, button);
-
-		return section;
-	}
-
 	render(): void {
 		this.parent.innerHTML = "";
 
 		this.columns.list.forEach((column) => {
 			this.parent.append(new ColumnView(this.parent, column).render());
 		});
-		this.parent.append(this.createColumnElement());
+		this.parent.append(new CreateColumnInput(this.columns.add).render());
 	}
 }

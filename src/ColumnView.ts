@@ -1,3 +1,4 @@
+import { CreateTodoInput } from "./CreateTodoInput";
 import { Todo } from "./Todo";
 import { TodoList } from "./TodoList";
 
@@ -19,9 +20,9 @@ export class ColumnView {
 		});
 	}
 
-	private add(title: string): void {
+	add = (title: string): void => {
 		this.column.createTodo(title);
-	}
+	};
 
 	private createCard(todo: Todo): Element {
 		const card = document.createElement("article");
@@ -30,26 +31,6 @@ export class ColumnView {
 
 		card.classList.add("column__card");
 		card.append(cardTitle);
-
-		return card;
-	}
-
-	private createTodoElement(): Element {
-		// TODO: it needs to abstract this bunch of code
-		const card = document.createElement("article");
-		card.classList.add("column__card");
-
-		const input = document.createElement("input");
-		const button = document.createElement("button");
-
-		button.textContent = "New Todo";
-		button.addEventListener("click", () => {
-			if (!input.value) return;
-
-			this.add(input.value);
-		});
-
-		card.append(input, button);
 
 		return card;
 	}
@@ -66,7 +47,7 @@ export class ColumnView {
 		section.append(header);
 
 		this.column.todos.forEach((todo) => section.append(this.createCard(todo)));
-		section.append(this.createTodoElement());
+		section.append(new CreateTodoInput(this.add).render());
 
 		return section;
 	}

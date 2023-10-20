@@ -10,12 +10,12 @@ export class Columns extends Eventing {
 		return [...this._list];
 	}
 
-	add(columnName: string): void {
+	add = (columnName: string): void => {
 		const newColumn = new TodoList(columnName);
 
 		this._list.push(newColumn);
 		this.trigger("add-column", columnName);
-	}
+	};
 
 	getColumn(columnName: string): TodoList {
 		const column = this._list.find((column) => column.name === columnName);
