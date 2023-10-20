@@ -14,7 +14,7 @@ export class TodoList extends Eventing {
 		const todo = new Todo(title, this.name, new Date(Date.now()));
 
 		this._todos.push(todo);
-		this.trigger("createtodo", this.name);
+		this.trigger("create-todo", this.name);
 	}
 
 	getTodo(todoTitle: string): Todo {

@@ -11,7 +11,7 @@ export class ColumnView {
 	}
 
 	private bindRender(): void {
-		this.column.on("add-todo", () => {
+		this.column.on("create-todo", () => {
 			this.parent.replaceChild(
 				this.render(),
 				this.parent.children.namedItem(this.column.name) as Element
@@ -20,7 +20,7 @@ export class ColumnView {
 	}
 
 	private add(title: string): void {
-		this.column.add(new Todo(title, this.column.name, Date.now()));
+		this.column.createTodo(title);
 	}
 
 	private createCard(todo: Todo): Element {
